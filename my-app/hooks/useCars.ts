@@ -14,7 +14,7 @@ export const useCars = (filters: Filters) => {
   return useInfiniteQuery({
     queryKey: ['cars', filters],
 
-    queryFn: ({ pageParam }) =>
+    queryFn: ({ pageParam = 1 }) =>
       fetchCars({
         pageParam,
         ...filters,
@@ -22,11 +22,9 @@ export const useCars = (filters: Filters) => {
 
     initialPageParam: 1,
 
-    getNextPageParam: (lastPage, allPages) => {
-      const totalPages = Math.ceil(lastPage.totalCars / 12);
-
-      return allPages.length < totalPages
-        ? allPages.length + 1
+    getNextPageParam: (lastPage) => {
+      return lastPage.page < lastPage.totalPages
+        ? lastPage.page + 1
         : undefined;
     },
   });

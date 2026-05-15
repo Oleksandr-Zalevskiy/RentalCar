@@ -1,5 +1,5 @@
 import { api } from './axios';
-import { CarsResponse } from '@/types/car';
+import { CarsResponse, Car } from '@/types/car';
 
 interface FetchCarsParams {
   pageParam?: number;
@@ -30,7 +30,9 @@ export const fetchCars = async ({
   return data;
 };
 
-export const fetchCarById = async (id: string) => {
+export const fetchCarById = async (
+  id: string
+): Promise<Car> => {
   const { data } = await api.get(`/cars/${id}`);
 
   return data;

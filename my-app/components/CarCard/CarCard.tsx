@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import Link from 'next/link';
 import { Car } from '@/types/car';
 
@@ -8,7 +9,12 @@ interface Props {
 export default function CarCard({ car }: Props) {
   return (
     <article>
-      <img src={car.img} alt={car.model} />
+      <Image
+        src={car.img}
+        alt={car.model}
+        width={276}
+        height={268}
+      />
 
       <h2>
         {car.brand} {car.model}
