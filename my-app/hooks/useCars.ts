@@ -1,7 +1,7 @@
 'use client';
 
 import { useInfiniteQuery } from '@tanstack/react-query';
-import { fetchCars } from '@/lib/api/cars';
+import { fetchCars } from '../lib/api/cars';
 
 interface Filters {
   brand: string;

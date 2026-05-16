@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { useCars } from '@/hooks/useCars';
+import { useCars } from '../../hooks/useCars';
 
 export default function CatalogPage() {
   const [filters, setFilters] = useState({
