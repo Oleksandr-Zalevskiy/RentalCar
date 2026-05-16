@@ -1,0 +1,45 @@
+.header {
+  height: 68px;
+  border-bottom: 1px solid #f2f4f7;
+  background-color: #fff;
+}
+
+.container {
+  max-width: 1200px;
+  height: 100%;
+
+  margin: 0 auto;
+  padding: 0 24px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo {
+  font-size: 20px;
+  font-weight: 700;
+  color: #101828;
+  text-decoration: none;
+}
+
+.logo span {
+  color: #3470ff;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+
+.nav a {
+  text-decoration: none;
+  color: #101828;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.active {
+  color: #3470ff !important;
+}
