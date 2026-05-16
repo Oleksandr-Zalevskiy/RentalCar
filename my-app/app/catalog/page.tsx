@@ -1,7 +1,11 @@
 'use client';
 
 import { useState } from 'react';
+
 import { useCars } from '../../hooks/useCars';
+
+import CarList from '../../components/CarList/CarList';
+import Filters from '../../components/Filters/Filters';
 
 export default function CatalogPage() {
   const [filters, setFilters] = useState({
@@ -16,23 +20,30 @@ export default function CatalogPage() {
     fetchNextPage,
     hasNextPage,
     isFetchingNextPage,
+    isLoading,
   } = useCars(filters);
 
-  const cars = data?.pages.flatMap(page => page.cars) || [];
+  const cars =
+    data?.pages.flatMap((page) => page.cars) || [];
 
   return (
     <main>
-      <h1>Catalog</h1>
+      <Filters
+        filters={filters}
+        setFilters={setFilters}
+      />
 
-      {cars.map(car => (
-        <div key={car.id}>{car.brand}</div>
-      ))}
+      <CarList cars={cars} />
 
       {hasNextPage && (
         <button onClick={() => fetchNextPage()}>
-          {isFetchingNextPage ? 'Loading...' : 'Load More'}
+          {isFetchingNextPage
+            ? 'Loading...'
+            : 'Load More'}
         </button>
       )}
+
+      {isLoading && <p>Loading...</p>}
     </main>
   );
 }
