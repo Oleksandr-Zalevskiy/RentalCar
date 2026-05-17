@@ -1,6 +1,7 @@
 'use client';
 
 import { useInfiniteQuery } from '@tanstack/react-query';
+
 import { fetchCars } from '../lib/api/cars';
 
 interface Filters {
@@ -10,21 +11,39 @@ interface Filters {
   maxMileage: string;
 }
 
-export const useCars = (filters: Filters) => {
+export const useCars = (
+  filters: Filters
+) => {
   return useInfiniteQuery({
     queryKey: ['cars', filters],
 
     queryFn: ({ pageParam = 1 }) =>
       fetchCars({
-        pageParam,
-        ...filters,
+        page: pageParam,
+        limit: 8,
+
+        brand: filters.brand || undefined,
+
+        rentalPrice:
+          filters.rentalPrice || undefined,
+
+        minMileage:
+          filters.minMileage || undefined,
+
+        maxMileage:
+          filters.maxMileage || undefined,
       }),
 
     initialPageParam: 1,
 
-    getNextPageParam: (lastPage) => {
-      return lastPage.page < lastPage.totalPages
-        ? lastPage.page + 1
+    getNextPageParam: (
+      lastPage,
+      allPages
+    ) => {
+      const nextPage = allPages.length + 1;
+
+      return nextPage <= lastPage.totalPages
+        ? nextPage
         : undefined;
     },
   });

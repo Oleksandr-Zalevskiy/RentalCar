@@ -27,23 +27,58 @@ export default function CatalogPage() {
     data?.pages.flatMap((page) => page.cars) || [];
 
   return (
-    <main>
+    <main
+      style={{
+        paddingTop: '40px',
+        paddingBottom: '80px',
+      }}
+    >
       <Filters
         filters={filters}
         setFilters={setFilters}
       />
 
-      <CarList cars={cars} />
-
-      {hasNextPage && (
-        <button onClick={() => fetchNextPage()}>
-          {isFetchingNextPage
-            ? 'Loading...'
-            : 'Load More'}
-        </button>
+      {isLoading ? (
+        <p
+          style={{
+            textAlign: 'center',
+            marginTop: '40px',
+          }}
+        >
+          Loading...
+        </p>
+      ) : (
+        <CarList cars={cars} />
       )}
 
-      {isLoading && <p>Loading...</p>}
+      {hasNextPage && (
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'center',
+            marginTop: '80px',
+          }}
+        >
+          <button
+            onClick={() => fetchNextPage()}
+            style={{
+              width: '156px',
+              height: '44px',
+              borderRadius: '12px',
+              border: 'none',
+              backgroundColor: '#3470FF',
+              color: '#FFFFFF',
+              fontSize: '16px',
+              fontWeight: 600,
+              cursor: 'pointer',
+            }}
+          >
+            {isFetchingNextPage
+              ? 'Loading...'
+              : 'Load More'}
+          </button>
+        </div>
+      )}
     </main>
   );
 }

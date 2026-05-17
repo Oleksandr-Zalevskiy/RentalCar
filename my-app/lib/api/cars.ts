@@ -1,30 +1,26 @@
-import { api } from './axios';
-import { CarsResponse, Car } from '@/types/car';
+import axios from 'axios';
+
+const api = axios.create({
+  baseURL:
+    'https://car-rental-api.goit.global',
+});
 
 interface FetchCarsParams {
-  pageParam?: number;
+  page: number;
+  limit: number;
+
   brand?: string;
   rentalPrice?: string;
+
   minMileage?: string;
   maxMileage?: string;
 }
 
-export const fetchCars = async ({
-  pageParam = 1,
-  brand,
-  rentalPrice,
-  minMileage,
-  maxMileage,
-}: FetchCarsParams): Promise<CarsResponse> => {
+export const fetchCars = async (
+  params: FetchCarsParams
+) => {
   const { data } = await api.get('/cars', {
-    params: {
-      page: pageParam,
-      limit: 12,
-      brand,
-      rentalPrice,
-      minMileage,
-      maxMileage,
-    },
+    params,
   });
 
   return data;
@@ -32,8 +28,16 @@ export const fetchCars = async ({
 
 export const fetchCarById = async (
   id: string
-): Promise<Car> => {
-  const { data } = await api.get(`/cars/${id}`);
+) => {
+  const { data } = await api.get(
+    `/cars/${id}`
+  );
+
+  return data;
+};
+
+export const fetchBrands = async () => {
+  const { data } = await api.get('/brands');
 
   return data;
 };
