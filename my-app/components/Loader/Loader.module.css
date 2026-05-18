@@ -1,0 +1,42 @@
+.overlay {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 80px 0;
+}
+
+.road {
+  width: 300px;
+  height: 6px;
+  background-color: #d9d9d9;
+  border-radius: 999px;
+  position: relative;
+  overflow: hidden;
+}
+
+.car {
+  position: absolute;
+  top: -28px;
+  left: 0;
+  font-size: 40px;
+  animation: drive 2s linear infinite;
+}
+
+.text {
+  margin-top: 24px;
+  font-size: 18px;
+  font-weight: 600;
+  color: #3470ff;
+}
+
+@keyframes drive {
+  0% {
+    transform: translateX(-50px);
+  }
+
+  100% {
+    transform: translateX(320px);
+  }
+}
