@@ -6,6 +6,7 @@ import { useCars } from '../../hooks/useCars';
 
 import CarList from '../../components/CarList/CarList';
 import Filters from '../../components/Filters/Filters';
+import Loader from '../../components/Loader/Loader';
 
 export default function CatalogPage() {
   const [filters, setFilters] = useState({
@@ -21,10 +22,31 @@ export default function CatalogPage() {
     hasNextPage,
     isFetchingNextPage,
     isLoading,
+    isError,
   } = useCars(filters);
 
   const cars =
     data?.pages.flatMap((page) => page.cars) || [];
+
+  if (isLoading) {
+    return <Loader />;
+  }
+
+  if (isError) {
+    return (
+      <p
+        style={{
+          textAlign: 'center',
+          marginTop: '40px',
+          color: 'red',
+          fontSize: '20px',
+          fontWeight: 600,
+        }}
+      >
+        Failed to load cars
+      </p>
+    );
+  }
 
   return (
     <main
@@ -38,18 +60,7 @@ export default function CatalogPage() {
         setFilters={setFilters}
       />
 
-      {isLoading ? (
-        <p
-          style={{
-            textAlign: 'center',
-            marginTop: '40px',
-          }}
-        >
-          Loading...
-        </p>
-      ) : (
-        <CarList cars={cars} />
-      )}
+      <CarList cars={cars} />
 
       {hasNextPage && (
         <div
